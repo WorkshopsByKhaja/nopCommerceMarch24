@@ -18,3 +18,19 @@ stages:
               tags: latest
               containerRegistry: MyDockerHub
               repository: shaikkhajaibrahim/nopforworkshopmar24
+  - stage: deployment
+    displayName: Create k8s and deploy
+    pool: default
+    jobs:
+      - job: deploy
+        displayName: provision k8s cluster and deploy
+        steps:
+          - task: Bash@3
+            inputs:
+              targetType: inline
+              workingDirectory: "./Deployments/terraform"
+              script: "terraform init && terraform apply -auto-approve"
+          - task: Bash@3
+            inputs:
+              targetType: inline
+              script: "kubectl apply -f ./Deployments/k8s"
