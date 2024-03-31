@@ -1,10 +1,6 @@
 # output k8s cluster name
 output "name" {
-    value = aws_eks_cluster.cluster.name
+    value = azurerm_kubernetes_cluster.workshop.name
 }
 
-# output node details
 
-output "node" {
-    value = aws_eks_node_group.node.resources
-}
